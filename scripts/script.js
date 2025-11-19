@@ -1,260 +1,174 @@
-// Set current year in footer
-document.getElementById("year").textContent = new Date().getFullYear();
-
-/* ----------------------------------
-   LOCOMOTIVE SCROLL + SCROLLTRIGGER
----------------------------------- */
-const scrollContainer = document.querySelector("[data-scroll-container]");
-
-const locoScroll = new LocomotiveScroll({
-  el: scrollContainer,
+// 1. Initialize Lenis for Smooth Scrolling
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  direction: "vertical",
+  gestureDirection: "vertical",
   smooth: true,
-  smoothMobile: true,
-  smartphone: { smooth: true },
-  tablet: { smooth: true },
 });
 
-locoScroll.on("scroll", ScrollTrigger.update);
-
-ScrollTrigger.scrollerProxy(scrollContainer, {
-  scrollTop(value) {
-    return arguments.length
-      ? locoScroll.scrollTo(value, 0, 0)
-      : locoScroll.scroll.instance.scroll.y;
-  },
-  getBoundingClientRect() {
-    return {
-      top: 0,
-      left: 0,
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
-  },
-  pinType: scrollContainer.style.transform ? "transform" : "fixed",
-});
-
-ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
-ScrollTrigger.refresh();
-
-/* ----------------------------------
-   GSAP ANIMATIONS (ENTRANCE)
----------------------------------- */
-const animatedElements = document.querySelectorAll("[data-animate]");
-
-animatedElements.forEach((el) => {
-  const type = el.dataset.animate || "fade-up";
-  const delay = parseFloat(el.dataset.animateDelay || "0");
-
-  const base = {
-    opacity: 0,
-    duration: 0.9,
-    ease: "power3.out",
-    delay,
-  };
-
-  if (type === "fade-up") base.y = 40;
-  if (type === "fade-down") base.y = -30;
-  if (type === "fade-left") base.x = 40;
-  if (type === "fade-right") base.x = -40;
-  if (type === "fade-scale") base.scale = 0.9;
-
-  gsap.from(el, {
-    ...base,
-    scrollTrigger: {
-      trigger: el,
-      scroller: scrollContainer,
-      start: "top 85%",
-      toggleActions: "play none none reverse",
-    },
-  });
-});
-
-// Subtle hero media parallax
-gsap.to(".hero-media", {
-  yPercent: -6,
-  scrollTrigger: {
-    trigger: ".hero",
-    scroller: scrollContainer,
-    scrub: true,
-    start: "top bottom",
-    end: "bottom top",
-  },
-});
-
-/* ----------------------------------
-   HERO IMAGE CAROUSEL (7 IMAGES)
----------------------------------- */
-const track = document.getElementById("heroCarouselTrack");
-const slides = Array.from(track.querySelectorAll(".carousel-slide"));
-const prevBtn = document.getElementById("carouselPrev");
-const nextBtn = document.getElementById("carouselNext");
-const dotsContainer = document.getElementById("carouselDots");
-
-let currentIndex = 0;
-let carouselAutoPlay;
-
-// Create dots
-slides.forEach((_, index) => {
-  const dot = document.createElement("button");
-  dot.classList.add("carousel-dot");
-  if (index === 0) dot.classList.add("is-active");
-  dot.setAttribute("data-index", index);
-  dotsContainer.appendChild(dot);
-});
-
-const dots = Array.from(dotsContainer.querySelectorAll(".carousel-dot"));
-
-function goToSlide(newIndex, direction = 1) {
-  if (newIndex === currentIndex || newIndex < 0 || newIndex >= slides.length)
-    return;
-
-  const currentSlide = slides[currentIndex];
-  const nextSlide = slides[newIndex];
-
-  // Prepare next slide position
-  gsap.set(nextSlide, {
-    xPercent: 100 * direction,
-    opacity: 1,
-    pointerEvents: "auto",
-  });
-
-  // Animate current slide out
-  gsap.to(currentSlide, {
-    xPercent: -100 * direction,
-    opacity: 0,
-    duration: 0.7,
-    ease: "power3.inOut",
-    onComplete: () => {
-      currentSlide.classList.remove("is-active");
-      gsap.set(currentSlide, { xPercent: 0, pointerEvents: "none" });
-    },
-  });
-
-  // Animate next slide in
-  gsap.to(nextSlide, {
-    xPercent: 0,
-    duration: 0.7,
-    ease: "power3.inOut",
-    onStart: () => {
-      nextSlide.classList.add("is-active");
-    },
-  });
-
-  // Update dots
-  dots[currentIndex].classList.remove("is-active");
-  dots[newIndex].classList.add("is-active");
-
-  currentIndex = newIndex;
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
 }
 
-function nextSlide() {
-  const newIndex = (currentIndex + 1) % slides.length;
-  goToSlide(newIndex, 1);
-}
+requestAnimationFrame(raf);
 
-function prevSlide() {
-  const newIndex = (currentIndex - 1 + slides.length) % slides.length;
-  goToSlide(newIndex, -1);
-}
+// Connect GSAP ScrollTrigger to Lenis
+gsap.registerPlugin(ScrollTrigger);
 
-// Auto-play
-function startAutoPlay() {
-  clearInterval(carouselAutoPlay);
-  carouselAutoPlay = setInterval(nextSlide, 5000);
-}
+// 2. Hero Carousel Logic
+const slides = document.querySelectorAll(".slide");
+let currentSlide = 0;
+const totalSlides = slides.length;
 
-function stopAutoPlay() {
-  clearInterval(carouselAutoPlay);
-}
+// Automatically change slide every 5 seconds
+setInterval(() => {
+  slides[currentSlide].classList.remove("active");
+  currentSlide = (currentSlide + 1) % totalSlides;
+  slides[currentSlide].classList.add("active");
+}, 5000);
 
-startAutoPlay();
+// 3. Hamburger Menu Animation
+const hamburger = document.querySelector(".hamburger-menu");
+const mobileNav = document.querySelector(".mobile-nav-overlay");
+const mobileLinks = document.querySelectorAll(".mobile-links a");
 
-// Events
-nextBtn.addEventListener("click", () => {
-  stopAutoPlay();
-  nextSlide();
-  startAutoPlay();
-});
-
-prevBtn.addEventListener("click", () => {
-  stopAutoPlay();
-  prevSlide();
-  startAutoPlay();
-});
-
-dots.forEach((dot) => {
-  dot.addEventListener("click", () => {
-    const targetIndex = parseInt(dot.getAttribute("data-index"), 10);
-    const direction = targetIndex > currentIndex ? 1 : -1;
-    stopAutoPlay();
-    goToSlide(targetIndex, direction);
-    startAutoPlay();
-  });
-});
-
-// Pause autoplay on hover (desktop)
-const heroCarousel = document.querySelector(".hero-carousel");
-heroCarousel.addEventListener("mouseenter", stopAutoPlay);
-heroCarousel.addEventListener("mouseleave", startAutoPlay);
-
-/* ----------------------------------
-   MOBILE MENU (HAMBURGER)
----------------------------------- */
-const hamburger = document.getElementById("hamburger");
-const mobileNav = document.getElementById("mobileNav");
-
-const menuTimeline = gsap.timeline({
-  paused: true,
-  defaults: { ease: "power3.out" },
-});
-
-// Initial state
-gsap.set(mobileNav, { opacity: 0, pointerEvents: "none" });
+let isMenuOpen = false;
+const menuTimeline = gsap.timeline({ paused: true });
 
 menuTimeline
   .to(mobileNav, {
     opacity: 1,
-    pointerEvents: "auto",
+    pointerEvents: "all",
     duration: 0.4,
+    ease: "power2.out",
   })
-  .from(
-    ".mobile-nav-links a",
+  .to(
+    mobileLinks,
     {
-      y: 40,
-      opacity: 0,
-      stagger: 0.06,
-      duration: 0.5,
-    },
-    "-=0.1"
-  )
-  .from(
-    ".mobile-nav-footer",
-    {
-      y: 20,
-      opacity: 0,
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
       duration: 0.4,
+      ease: "power2.out",
     },
     "-=0.2"
   );
 
-let menuOpen = false;
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active"); // Animates the X via CSS
 
-function toggleMenu() {
-  menuOpen = !menuOpen;
-  hamburger.classList.toggle("open", menuOpen);
+  // if (!isMenuOpen) {
+  //   menuTimeline.play();
+  //   lenis.stop(); // Stop scrolling when menu is open
+  // } else {
+  //   menuTimeline.reverse();
+  //   lenis.start();
+  // }
+  // isMenuOpen = !isMenuOpen;
 
-  if (menuOpen) {
-    menuTimeline.play();
+  if (hamburger.classList.contains("active")) {
+    menuTimeline.play(); // Open
+    lenis.stop(); // Disable Page Scroll
   } else {
-    menuTimeline.reverse();
+    menuTimeline.reverse(); // Close
+    lenis.start(); // Enable Page Scroll
   }
-}
+});
 
-hamburger.addEventListener("click", toggleMenu);
-
-// Close menu when clicking any mobile nav link
-document.querySelectorAll(".mobile-nav-links a").forEach((link) => {
+// Close menu when a link is clicked
+mobileLinks.forEach((link) => {
   link.addEventListener("click", () => {
-    if (menuOpen) toggleMenu();
+    hamburger.classList.remove("active");
+    menuTimeline.reverse();
+    // isMenuOpen = false;
+    lenis.start();
   });
 });
+
+// 4. Page Animations (ScrollTrigger)
+
+// Hero Text Reveal
+gsap.from(".reveal-text", {
+  y: 50,
+  opacity: 0,
+  duration: 1,
+  stagger: 0.2,
+  ease: "power3.out",
+  delay: 0.5,
+});
+
+// Stats Counter Animation
+const stats = document.querySelectorAll(".counter");
+stats.forEach((stat) => {
+  const target = +stat.getAttribute("data-target");
+
+  ScrollTrigger.create({
+    trigger: stat,
+    start: "top 85%",
+    once: true,
+    onEnter: () => {
+      gsap.to(stat, {
+        innerHTML: target,
+        duration: 2,
+        snap: { innerHTML: 1 },
+        ease: "power1.inOut",
+      });
+    },
+  });
+});
+
+// About Section: Image moves left, Text moves right
+gsap.from(".gs-reveal-left", {
+  scrollTrigger: {
+    trigger: "#about",
+    start: "top 80%",
+  },
+  x: -100,
+  opacity: 0,
+  duration: 1,
+  ease: "power2.out",
+});
+
+gsap.from(".gs-reveal-right", {
+  scrollTrigger: {
+    trigger: "#about",
+    start: "top 80%",
+  },
+  x: 100,
+  opacity: 0,
+  duration: 1,
+  delay: 0.2,
+  ease: "power2.out",
+});
+
+// Project Cards Staggered Fade Up
+gsap.utils.toArray(".gs-fade-up").forEach((elem, i) => {
+  gsap.from(elem, {
+    scrollTrigger: {
+      trigger: elem,
+      start: "top 90%",
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power2.out",
+  });
+});
+
+// Gallery Items Pop In
+gsap.from(".gallery-item", {
+  scrollTrigger: {
+    trigger: "#gallery",
+    start: "top 75%",
+  },
+  scale: 0.8,
+  opacity: 0,
+  stagger: 0.1,
+  duration: 0.6,
+  ease: "back.out(1.7)",
+});
+
+// Refresh ScrollTrigger when Lenis updates (ensures sync)
+lenis.on("scroll", ScrollTrigger.update);
