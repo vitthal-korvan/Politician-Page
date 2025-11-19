@@ -1,338 +1,572 @@
-<!--
-Multi-file website provided in a single document. Copy each section below into separate files
-in a project folder (index.html, about.html, photos.html, videos.html, contact.html, campaign.html, /assets/*).
-This build uses GSAP (with ScrollTrigger), Locomotive Scroll, and vanilla JS for the slider, lazy-loading, and menu.
-Colors: #151F26 (dark) and #FFFFFF (white).
--->
-
-<!-- =================== index.html =================== -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Politician Portfolio - Leading with Vision</title>
-      <link rel="stylesheet" href="./styles/style.css">nk
-      <script src="./scripts/script.js" defer></script>
+      <meta charset="UTF-8" />
+      <title>Rahul Ramesh Shewale – Official Website</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <meta name="description" content="Official politician portfolio website">
+      <!-- Locomotive Scroll CSS -->
+      <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css" />
 
-      <!-- GSAP + ScrollTrigger + Locomotive Scroll -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.css">
-      <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.umd.js"></script>
-
-     
+      <!-- Main Styles -->
+      <link rel="stylesheet" href="./styles/style.css" />
 </head>
 
 <body>
-      <div data-scroll-container class="scroll-container">
-            <!-- Header & Navigation -->
-            <header>
-                  <nav class="navbar">
-                        <div class="nav-container">
-                              <div class="logo-container">
-                                    <div class="logo">
-                                          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="50" cy="30" r="20" fill="currentColor" />
-                                                <path d="M 30 60 Q 50 50 70 60 L 70 80 Q 50 90 30 80 Z"
-                                                      fill="currentColor" />
-                                          </svg>
+      <div class="smooth-scroll" data-scroll-container>
+            <div class="page">
+
+                  <!-- ==========================
+           HEADER
+      =========================== -->
+                  <header data-scroll data-scroll-sticky data-scroll-target=".page">
+                        <div class="header-inner">
+                              <div class="logo" data-animate="fade-down">
+                                    <div class="logo-mark">RS</div>
+                                    <div class="logo-text">
+                                          <span class="logo-name">Rahul Ramesh Shewale</span>
+                                          <span class="logo-caption">Civil Engineer · Public Representative</span>
                                     </div>
-                                    <span class="logo-text">Amit Shah</span>
                               </div>
 
-                              <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                              </button>
+                              <nav class="primary-nav" data-animate="fade-down">
+                                    <a href="#home">Home</a>
+                                    <a href="#about">About Rahul Shewale</a>
+                                    <a href="#image-gallery">Image Gallery</a>
+                                    <a href="#video-gallery">Video Gallery</a>
+                                    <a href="#blog">Blog</a>
+                                    <a href="#contact">Contact</a>
+                              </nav>
 
-                              <ul class="nav-menu" id="navMenu">
-                                    <li><a href="#about" class="nav-link">About</a></li>
-                                    <li><a href="#photos" class="nav-link">Photos</a></li>
-                                    <li><a href="#videos" class="nav-link">Videos</a></li>
-                                    <li><a href="#campaign" class="nav-link">Campaign</a></li>
-                                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                              </ul>
+                              <div class="header-actions">
+                                    <div class="header-pill" data-animate="fade-down">
+                                          Mumbai South Central
+                                    </div>
+
+                                    <button class="btn secondary" data-animate="fade-down">
+                                          Join as Volunteer
+                                    </button>
+
+                                    <!-- Hamburger -->
+                                    <button class="hamburger" id="hamburger">
+                                          <div class="hamburger-lines">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                          </div>
+                                    </button>
+                              </div>
                         </div>
-                  </nav>
+                  </header>
 
-                  <div class="mobile-nav-menu" id="mobileNavMenu">
-                        <a href="#about" class="mobile-nav-link">About</a>
-                        <a href="#photos" class="mobile-nav-link">Photos</a>
-                        <a href="#videos" class="mobile-nav-link">Videos</a>
-                        <a href="#campaign" class="mobile-nav-link">Campaign</a>
-                        <a href="#contact" class="mobile-nav-link">Contact</a>
+                  <!-- ==========================
+           MOBILE FULLSCREEN MENU
+      =========================== -->
+                  <div class="mobile-nav" id="mobileNav">
+                        <div class="mobile-nav-inner">
+                              <div class="mobile-nav-top-label">Navigation</div>
+                              <div class="mobile-nav-links">
+                                    <a href="#home">Home <span>मुख्य</span></a>
+                                    <a href="#about">About Rahul Shewale <span>माहिती</span></a>
+                                    <a href="#image-gallery">Image Gallery <span>फोटो</span></a>
+                                    <a href="#video-gallery">Video Gallery <span>व्हिडिओ</span></a>
+                                    <a href="#blog">Blog <span>अपडेट्स</span></a>
+                                    <a href="#contact">Contact <span>संपर्क</span></a>
+                              </div>
+                        </div>
+                        <div class="mobile-nav-footer">
+                              <div>“Vikas, Suraksha, Aani Sevachya Margavar – Rahul Shewale.”</div>
+                              <div class="mobile-nav-social">
+                                    <span>Twitter</span>
+                                    <span>Facebook</span>
+                                    <span>Instagram</span>
+                                    <span>YouTube</span>
+                              </div>
+                        </div>
                   </div>
-            </header>
 
-            <!-- Main Content -->
-            <main data-scroll-section>
-                  <!-- Hero Section with Image Slider -->
-                  <section class="hero" data-scroll-section>
-                        <div class="slider-container">
-                              <div class="slider" id="slider">
-                                    <div class="slide active" data-scroll data-scroll-speed="2">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&h=900&fit=crop"
-                                                alt="Hero 1" loading="lazy">
-                                          <div class="slide-content">
-                                                <h1 class="slide-title">Leading with Vision</h1>
-                                                <p class="slide-description">Building a better tomorrow for our
-                                                      community</p>
-                                          </div>
+                  <!-- ==========================
+           HERO SECTION / HOME
+      =========================== -->
+                  <section class="section hero" id="home" data-scroll-section>
+                        <div class="hero-content">
+                              <div class="hero-eyebrow" data-animate="fade-up">
+                                    <span class="hero-eyebrow-pill">Public Service</span>
+                                    Focused on infrastructure, redevelopment & better amenities for Mumbai’s citizens.
+                              </div>
+
+                              <h1 class="hero-title" data-animate="fade-up">
+                                    <span class="accent">Rahul Ramesh Shewale</span>
+                              </h1>
+
+                              <p class="hero-subtitle" data-animate="fade-up">
+                                    Civil Engineer | Former Member of Parliament, Mumbai South Central |
+                                    Former Chairman, BMC Standing Committee.
+                              </p>
+
+                              <p class="hero-vision" data-animate="fade-up">
+                                    Working with a grounded, engineering-driven approach to solve Mumbai’s
+                                    real issues – roads, housing, transport and everyday civic needs.
+                              </p>
+
+                              <div class="hero-metrics" data-animate="fade-up">
+                                    <div class="hero-metric">
+                                          <span class="metric-label">Years in Public Service</span>
+                                          <span class="metric-value">15+ years</span>
                                     </div>
-                                    <div class="slide" data-scroll data-scroll-speed="2">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&h=900&fit=crop"
-                                                alt="Hero 2" loading="lazy">
-                                          <div class="slide-content">
-                                                <h1 class="slide-title">Community First</h1>
-                                                <p class="slide-description">Your voice matters, your vote counts</p>
-                                          </div>
+                                    <div class="hero-metric">
+                                          <span class="metric-label">Key Leadership Roles</span>
+                                          <span class="metric-value">Ex-MP · 4-time BMC Standing Committee
+                                                Chairman</span>
                                     </div>
-                                    <div class="slide" data-scroll data-scroll-speed="2">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&h=900&fit=crop"
-                                                alt="Hero 3" loading="lazy">
-                                          <div class="slide-content">
-                                                <h1 class="slide-title">Progress Together</h1>
-                                                <p class="slide-description">Transforming ideas into action</p>
-                                          </div>
+                                    <div class="hero-metric">
+                                          <span class="metric-label">Constituency Focus</span>
+                                          <span class="metric-value">Dharavi · Sion · Chembur · Wadala</span>
                                     </div>
-                                    <div class="slide" data-scroll data-scroll-speed="2">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&h=900&fit=crop"
-                                                alt="Hero 4" loading="lazy">
-                                          <div class="slide-content">
-                                                <h1 class="slide-title">Change Starts Here</h1>
-                                                <p class="slide-description">Join us in making a difference</p>
-                                          </div>
-                                    </div>
-                                    <div class="slide" data-scroll data-scroll-speed="2">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&h=900&fit=crop"
-                                                alt="Hero 5" loading="lazy">
-                                          <div class="slide-content">
-                                                <h1 class="slide-title">Our Future Awaits</h1>
-                                                <p class="slide-description">Together we rise, together we succeed</p>
-                                          </div>
+                                    <div class="hero-metric">
+                                          <span class="metric-label">Priority</span>
+                                          <span class="metric-value">Infrastructure · Housing · Basic Amenities</span>
                                     </div>
                               </div>
 
-                              <div class="slider-controls">
-                                    <button class="slider-btn prev" id="prevBtn" aria-label="Previous slide">❮</button>
-                                    <div class="slider-dots" id="dotsContainer"></div>
-                                    <button class="slider-btn next" id="nextBtn" aria-label="Next slide">❯</button>
-                              </div>
-                        </div>
-                  </section>
-
-                  <!-- About Section -->
-                  <section class="about" id="about" data-scroll-section>
-                        <div class="container">
-                              <div class="about-content">
-                                    <div class="about-text" data-scroll data-scroll-speed="0.5">
-                                          <h2 class="section-title">About Us</h2>
-                                          <p>With over 20 years of dedicated service to our community, I've worked
-                                                tirelessly to improve the lives of every constituent. My commitment to
-                                                transparency, integrity, and progress has guided every decision I've
-                                                made.</p>
-                                          <p>I believe in the power of community and the importance of listening to your
-                                                voices. Together, we can build a brighter future for generations to
-                                                come.</p>
-                                          <button class="cta-button">Learn More</button>
-                                    </div>
-                                    <div class="about-image" data-scroll data-scroll-speed="0.3">
-                                          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop"
-                                                alt="Politician Portrait" loading="lazy">
-                                    </div>
+                              <div class="hero-actions" data-animate="fade-up">
+                                    <button class="btn">
+                                          See Development Work
+                                          <span class="icon">↗</span>
+                                    </button>
+                                    <button class="btn secondary">
+                                          Latest Updates
+                                    </button>
+                                    <button class="btn ghost">
+                                          Contact Office
+                                    </button>
                               </div>
                         </div>
-                  </section>
 
-                  <!-- Photos Section -->
-                  <section class="photos" id="photos" data-scroll-section>
-                        <div class="container">
-                              <h2 class="section-title" data-scroll>Photo Gallery</h2>
-                              <div class="gallery-grid">
-                                    <div class="gallery-item" data-scroll data-scroll-speed="0.8">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop"
-                                                alt="Gallery 1" loading="lazy">
-                                          <div class="gallery-overlay">
-                                                <p>Community Event</p>
+                        <!-- HERO CAROUSEL (7 IMAGES) -->
+                        <div class="hero-media" data-animate="fade-left">
+                              <div class="hero-carousel">
+                                    <div class="carousel-track" id="heroCarouselTrack">
+                                          <!-- TIP: Replace src with real Rahul Shewale images -->
+                                          <div class="carousel-slide is-active">
+                                                <img src="images/rahul-1.jpg"
+                                                      alt="Rahul Shewale - public interaction" />
+                                          </div>
+                                          <div class="carousel-slide">
+                                                <img src="images/rahul-2.jpg" alt="Rahul Shewale at development site" />
+                                          </div>
+                                          <div class="carousel-slide">
+                                                <img src="images/rahul-3.jpg" alt="Rahul Shewale with citizens" />
+                                          </div>
+                                          <div class="carousel-slide">
+                                                <img src="images/rahul-4.jpg" alt="Rahul Shewale in meeting" />
+                                          </div>
+                                          <div class="carousel-slide">
+                                                <img src="images/rahul-5.jpg" alt="Rahul Shewale in rally" />
+                                          </div>
+                                          <div class="carousel-slide">
+                                                <img src="images/rahul-6.jpg"
+                                                      alt="Rahul Shewale addressing gathering" />
+                                          </div>
+                                          <div class="carousel-slide">
+                                                <img src="images/rahul-7.jpg" alt="Rahul Shewale inspecting work" />
                                           </div>
                                     </div>
-                                    <div class="gallery-item" data-scroll data-scroll-speed="0.8">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop"
-                                                alt="Gallery 2" loading="lazy">
-                                          <div class="gallery-overlay">
-                                                <p>Town Hall Meeting</p>
-                                          </div>
+
+                                    <button class="carousel-nav prev" id="carouselPrev">
+                                          <span>‹</span>
+                                    </button>
+                                    <button class="carousel-nav next" id="carouselNext">
+                                          <span>›</span>
+                                    </button>
+
+                                    <div class="carousel-dots" id="carouselDots">
+                                          <!-- JS will create 7 dots -->
                                     </div>
-                                    <div class="gallery-item" data-scroll data-scroll-speed="0.8">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop"
-                                                alt="Gallery 3" loading="lazy">
-                                          <div class="gallery-overlay">
-                                                <p>Public Service</p>
-                                          </div>
-                                    </div>
-                                    <div class="gallery-item" data-scroll data-scroll-speed="0.8">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop"
-                                                alt="Gallery 4" loading="lazy">
-                                          <div class="gallery-overlay">
-                                                <p>Community Project</p>
-                                          </div>
+
+                                    <div class="hero-media-label">
+                                          <span>Shiv Sena (Shinde)</span>
+                                          <span>Grassroots connect · Infrastructure focus</span>
                                     </div>
                               </div>
                         </div>
                   </section>
 
-                  <!-- Videos Section -->
-                  <section class="videos" id="videos" data-scroll-section>
-                        <div class="container">
-                              <h2 class="section-title" data-scroll>Latest Videos</h2>
-                              <div class="videos-grid">
-                                    <div class="video-card" data-scroll data-scroll-speed="0.7">
-                                          <div class="video-thumbnail">
-                                                <img src="https://images.unsplash.com/photo-1611339555312-e607c25352ca?w=400&h=225&fit=crop"
-                                                      alt="Video 1" loading="lazy">
-                                                <div class="play-button">
-                                                      <svg viewBox="0 0 24 24" fill="currentColor">
-                                                            <path d="M8 5v14l11-7z" />
-                                                      </svg>
-                                                </div>
+                  <!-- ==========================
+           ABOUT SECTION
+      =========================== -->
+                  <section class="section about" id="about" data-scroll-section>
+                        <div class="section-header">
+                              <div>
+                                    <h2 class="section-title" data-animate="fade-up">About Rahul Shewale</h2>
+                                    <p class="section-subtitle" data-animate="fade-up">
+                                          A civil engineer by training and a public representative by commitment –
+                                          combining technical understanding
+                                          with on-ground experience in Mumbai’s civic system.
+                                    </p>
+                              </div>
+                        </div>
+
+                        <div class="about-layout">
+                              <!-- Personal Background -->
+                              <div class="about-block" data-animate="fade-up">
+                                    <h3>Personal Background</h3>
+                                    <p>
+                                          Rahul Ramesh Shewale comes from a modest family with a strong service
+                                          background. After completing his
+                                          diploma in Civil Engineering from Government Polytechnic, Bandra, he chose
+                                          public life as his path.
+                                    </p>
+                                    <p>
+                                          With roots in Mumbai and deep understanding of local challenges, his work
+                                          focuses on practical solutions
+                                          – better roads, safer housing and smoother everyday life for citizens.
+                                    </p>
+                                    <ul class="about-list">
+                                          <li>Civil Engineering diploma – Govt. Polytechnic, Bandra</li>
+                                          <li>Ground connect with Mumbai South Central’s diverse communities</li>
+                                          <li>Guided by the vision of Balasaheb Thackeray & leadership of Eknath Shinde
+                                          </li>
+                                    </ul>
+                              </div>
+
+                              <!-- Political Journey / Timeline -->
+                              <div class="about-block" data-animate="fade-up">
+                                    <h3>Political Journey</h3>
+                                    <div class="timeline">
+                                          <div class="timeline-item">
+                                                <span class="timeline-year">Early Years</span>
+                                                <p>Entered civic politics as Corporator in Brihanmumbai Municipal
+                                                      Corporation (BMC).</p>
                                           </div>
-                                          <h3>Campaign Speech 2025</h3>
-                                          <p>Watch our latest campaign speech addressing key issues</p>
+                                          <div class="timeline-item">
+                                                <span class="timeline-year">Standing Committee</span>
+                                                <p>Served four terms as Chairman of the powerful BMC Standing Committee,
+                                                      overseeing core civic projects.</p>
+                                          </div>
+                                          <div class="timeline-item">
+                                                <span class="timeline-year">2014 – 2024</span>
+                                                <p>Elected as Member of Parliament from Mumbai South Central,
+                                                      representing key areas like Dharavi, Sion and Chembur.</p>
+                                          </div>
+                                          <div class="timeline-item">
+                                                <span class="timeline-year">Shiv Sena (Shinde)</span>
+                                                <p>Part of Shiv Sena (Eknath Shinde) leadership, aligning development
+                                                      agenda with state-level priorities.</p>
+                                          </div>
                                     </div>
-                                    <div class="video-card" data-scroll data-scroll-speed="0.7">
-                                          <div class="video-thumbnail">
-                                                <img src="https://images.unsplash.com/photo-1611339555312-e607c25352ca?w=400&h=225&fit=crop"
-                                                      alt="Video 2" loading="lazy">
-                                                <div class="play-button">
-                                                      <svg viewBox="0 0 24 24" fill="currentColor">
-                                                            <path d="M8 5v14l11-7z" />
-                                                      </svg>
-                                                </div>
+                              </div>
+
+                              <!-- Focus Areas -->
+                              <div class="about-block full-width" data-animate="fade-up">
+                                    <h3>Core Focus Areas</h3>
+                                    <div class="focus-grid">
+                                          <div class="focus-card">
+                                                <h4>Urban Infrastructure</h4>
+                                                <p>Roads, bridges, storm-water drainage and public transport
+                                                      connectivity that match Mumbai’s scale.</p>
                                           </div>
-                                          <h3>Community Forum</h3>
-                                          <p>Listen to community members share their concerns</p>
-                                    </div>
-                                    <div class="video-card" data-scroll data-scroll-speed="0.7">
-                                          <div class="video-thumbnail">
-                                                <img src="https://images.unsplash.com/photo-1611339555312-e607c25352ca?w=400&h=225&fit=crop"
-                                                      alt="Video 3" loading="lazy">
-                                                <div class="play-button">
-                                                      <svg viewBox="0 0 24 24" fill="currentColor">
-                                                            <path d="M8 5v14l11-7z" />
-                                                      </svg>
-                                                </div>
+                                          <div class="focus-card">
+                                                <h4>Redevelopment & Housing</h4>
+                                                <p>Safer, planned redevelopment for areas like Dharavi and old colonies
+                                                      with humane rehabilitation.</p>
                                           </div>
-                                          <h3>Policy Update</h3>
-                                          <p>Important updates on our latest policy initiatives</p>
+                                          <div class="focus-card">
+                                                <h4>Basic Amenities</h4>
+                                                <p>Water, sanitation, solid waste management and health facilities for
+                                                      everyday quality of life.</p>
+                                          </div>
+                                          <div class="focus-card">
+                                                <h4>Youth & Community</h4>
+                                                <p>Opportunities for youth, support for women and strong local community
+                                                      networks.</p>
+                                          </div>
                                     </div>
                               </div>
                         </div>
                   </section>
 
-                  <!-- Campaign Section -->
-                  <section class="campaign" id="campaign" data-scroll-section>
-                        <div class="container">
-                              <div class="campaign-content">
-                                    <div class="campaign-text" data-scroll data-scroll-speed="0.5">
-                                          <h2 class="section-title">Our Campaign</h2>
-                                          <h3>5 Key Promises</h3>
-                                          <ul class="promises-list">
-                                                <li>
-                                                      <span class="promise-number">1</span>
-                                                      <div>
-                                                            <h4>Economic Growth</h4>
-                                                            <p>Creating jobs and supporting local businesses</p>
-                                                      </div>
-                                                </li>
-                                                <li>
-                                                      <span class="promise-number">2</span>
-                                                      <div>
-                                                            <h4>Education</h4>
-                                                            <p>Investing in quality education for all</p>
-                                                      </div>
-                                                </li>
-                                                <li>
-                                                      <span class="promise-number">3</span>
-                                                      <div>
-                                                            <h4>Healthcare</h4>
-                                                            <p>Affordable healthcare for every family</p>
-                                                      </div>
-                                                </li>
-                                                <li>
-                                                      <span class="promise-number">4</span>
-                                                      <div>
-                                                            <h4>Environment</h4>
-                                                            <p>Sustainable practices for our future</p>
-                                                      </div>
-                                                </li>
-                                                <li>
-                                                      <span class="promise-number">5</span>
-                                                      <div>
-                                                            <h4>Safety</h4>
-                                                            <p>Secure and peaceful communities</p>
-                                                      </div>
-                                                </li>
-                                          </ul>
-                                          <button class="cta-button">Support Our Campaign</button>
+                  <!-- ==========================
+           IMAGE GALLERY PREVIEW
+      =========================== -->
+                  <section class="section gallery" id="image-gallery" data-scroll-section>
+                        <div class="section-header">
+                              <div>
+                                    <h2 class="section-title" data-animate="fade-up">Image Gallery</h2>
+                                    <p class="section-subtitle" data-animate="fade-up">
+                                          A glimpse of public meetings, development site visits, community events and
+                                          interactions with citizens.
+                                    </p>
+                              </div>
+                              <button class="btn secondary" data-animate="fade-up">
+                                    View all photos
+                              </button>
+                        </div>
+
+                        <div class="gallery-grid">
+                              <!-- Replace placeholders with real images -->
+                              <div class="gallery-card" data-animate="fade-up">
+                                    <img src="images/gallery-1.jpg" alt="Rahul Shewale addressing citizens" />
+                                    <div class="gallery-card-caption">
+                                          Public interaction in Dharavi · Community issues discussion
                                     </div>
-                                    <div class="campaign-image" data-scroll data-scroll-speed="0.3">
-                                          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=500&fit=crop"
-                                                alt="Campaign" loading="lazy">
+                              </div>
+                              <div class="gallery-card" data-animate="fade-up">
+                                    <img src="images/gallery-2.jpg" alt="Site visit" />
+                                    <div class="gallery-card-caption">
+                                          Inspection of road & drainage work in Sion
+                                    </div>
+                              </div>
+                              <div class="gallery-card" data-animate="fade-up">
+                                    <img src="images/gallery-3.jpg" alt="Festival celebration" />
+                                    <div class="gallery-card-caption">
+                                          Ganeshotsav celebrations with local mandals
                                     </div>
                               </div>
                         </div>
                   </section>
 
-                  <!-- Contact Section -->
-                  <section class="contact" id="contact" data-scroll-section>
-                        <div class="container">
-                              <h2 class="section-title" data-scroll>Get In Touch</h2>
-                              <div class="contact-content">
-                                    <div class="contact-info" data-scroll data-scroll-speed="0.6">
-                                          <div class="info-item">
-                                                <h4>Email</h4>
-                                                <p>contact@politician.com</p>
-                                          </div>
-                                          <div class="info-item">
-                                                <h4>Phone</h4>
-                                                <p>+1 (555) 123-4567</p>
-                                          </div>
-                                          <div class="info-item">
-                                                <h4>Address</h4>
-                                                <p>123 Main Street<br>Your City, State 12345</p>
-                                          </div>
-                                          <div class="social-links">
-                                                <a href="#" class="social-link">Facebook</a>
-                                                <a href="#" class="social-link">Twitter</a>
-                                                <a href="#" class="social-link">Instagram</a>
+                  <!-- ==========================
+           VIDEO GALLERY PREVIEW
+      =========================== -->
+                  <section class="section videos" id="video-gallery" data-scroll-section>
+                        <div class="section-header">
+                              <div>
+                                    <h2 class="section-title" data-animate="fade-up">Video Gallery</h2>
+                                    <p class="section-subtitle" data-animate="fade-up">
+                                          Speeches, development updates and messages to citizens – in one place.
+                                    </p>
+                              </div>
+                              <button class="btn secondary" data-animate="fade-up">
+                                    Watch all videos
+                              </button>
+                        </div>
+
+                        <div class="video-layout">
+                              <div class="video-featured" data-animate="fade-up">
+                                    <!-- Replace iframe with real YouTube embed -->
+                                    <div class="video-frame">
+                                          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Featured video"
+                                                frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <div class="video-featured-meta">
+                                          <h3>Message to citizens of Mumbai South Central</h3>
+                                          <p>
+                                                A short message on development priorities, ongoing projects and
+                                                commitment to everyday civic issues.
+                                          </p>
+                                          <div class="video-tags">
+                                                <span>Speech</span>
+                                                <span>Constituency</span>
+                                                <span>Marathi</span>
                                           </div>
                                     </div>
-                                    <form class="contact-form" id="contactForm">
-                                          <input type="text" placeholder="Your Name" required>
-                                          <input type="email" placeholder="Your Email" required>
-                                          <textarea placeholder="Your Message" rows="5" required></textarea>
-                                          <button type="submit" class="cta-button">Send Message</button>
+                              </div>
+
+                              <div class="video-list">
+                                    <div class="video-card" data-animate="fade-up">
+                                          <h4>Redevelopment update – key projects</h4>
+                                          <span class="video-meta">03:21 · Project explainer</span>
+                                    </div>
+                                    <div class="video-card" data-animate="fade-up">
+                                          <h4>Parliament speech highlight</h4>
+                                          <span class="video-meta">02:45 · Policy & governance</span>
+                                    </div>
+                                    <div class="video-card" data-animate="fade-up">
+                                          <h4>Youth interaction session</h4>
+                                          <span class="video-meta">04:30 · Community outreach</span>
+                                    </div>
+                              </div>
+                        </div>
+                  </section>
+
+                  <!-- ==========================
+           BLOG PREVIEW
+      =========================== -->
+                  <section class="section blog" id="blog" data-scroll-section>
+                        <div class="section-header">
+                              <div>
+                                    <h2 class="section-title" data-animate="fade-up">Blog & Updates</h2>
+                                    <p class="section-subtitle" data-animate="fade-up">
+                                          Short, clear updates on projects, city issues and important announcements for
+                                          citizens.
+                                    </p>
+                              </div>
+                              <button class="btn secondary" data-animate="fade-up">
+                                    View all posts
+                              </button>
+                        </div>
+
+                        <div class="blog-grid">
+                              <article class="blog-card" data-animate="fade-up">
+                                    <div class="blog-tag">Infrastructure</div>
+                                    <h3>Monsoon readiness: drainage & road work update</h3>
+                                    <p>
+                                          A summary of pre-monsoon work carried out in key flood-prone areas including
+                                          Sion, Wadala and parts of Dharavi.
+                                    </p>
+                                    <div class="blog-meta">
+                                          <span>12 June 2024</span>
+                                          <span>4 min read</span>
+                                    </div>
+                              </article>
+
+                              <article class="blog-card" data-animate="fade-up">
+                                    <div class="blog-tag">Redevelopment</div>
+                                    <h3>Guiding principles for fair and humane redevelopment</h3>
+                                    <p>
+                                          Why redevelopment must balance better housing, legal clarity and protection of
+                                          long-time residents.
+                                    </p>
+                                    <div class="blog-meta">
+                                          <span>27 May 2024</span>
+                                          <span>3 min read</span>
+                                    </div>
+                              </article>
+
+                              <article class="blog-card" data-animate="fade-up">
+                                    <div class="blog-tag">Community</div>
+                                    <h3>Youth engagement and skill-building initiatives</h3>
+                                    <p>
+                                          Highlights from recent youth interaction sessions and plans for training &
+                                          employment-oriented programs.
+                                    </p>
+                                    <div class="blog-meta">
+                                          <span>10 May 2024</span>
+                                          <span>5 min read</span>
+                                    </div>
+                              </article>
+                        </div>
+                  </section>
+
+                  <!-- ==========================
+           CONTACT
+      =========================== -->
+                  <section class="section contact" id="contact" data-scroll-section>
+                        <div class="section-header">
+                              <div>
+                                    <h2 class="section-title" data-animate="fade-up">Contact & Join Us</h2>
+                                    <p class="section-subtitle" data-animate="fade-up">
+                                          Citizens, organisations and media are welcome to connect for issues,
+                                          suggestions or collaboration.
+                                    </p>
+                              </div>
+                        </div>
+
+                        <div class="contact-layout">
+                              <!-- Contact Form -->
+                              <div class="contact-form-card" data-animate="fade-up">
+                                    <h3>Write to the Office</h3>
+                                    <form>
+                                          <div class="form-row">
+                                                <label for="name">Full Name</label>
+                                                <input id="name" type="text" placeholder="Your name" />
+                                          </div>
+                                          <div class="form-row">
+                                                <label for="mobile">Mobile Number</label>
+                                                <input id="mobile" type="tel" placeholder="10-digit mobile number" />
+                                          </div>
+                                          <div class="form-row">
+                                                <label for="email">Email Address</label>
+                                                <input id="email" type="email" placeholder="you@example.com" />
+                                          </div>
+                                          <div class="form-row">
+                                                <label for="area">Area / Locality</label>
+                                                <select id="area">
+                                                      <option value="">Select area</option>
+                                                      <option>Dharavi</option>
+                                                      <option>Sion</option>
+                                                      <option>Chembur</option>
+                                                      <option>Wadala</option>
+                                                      <option>Other</option>
+                                                </select>
+                                          </div>
+                                          <div class="form-row">
+                                                <label for="type">Type of Message</label>
+                                                <select id="type">
+                                                      <option>Suggestion</option>
+                                                      <option>Complaint</option>
+                                                      <option>Request for appointment</option>
+                                                      <option>Volunteer</option>
+                                                </select>
+                                          </div>
+                                          <div class="form-row">
+                                                <label for="message">Message</label>
+                                                <textarea id="message" rows="4"
+                                                      placeholder="Write your message..."></textarea>
+                                          </div>
+                                          <p class="form-note">
+                                                By submitting, you agree that your details may be used only for
+                                                responding to your query and public service follow-up.
+                                          </p>
+                                          <button type="submit" class="btn">
+                                                Submit Message
+                                          </button>
                                     </form>
                               </div>
+
+                              <!-- Contact Info / Map placeholder -->
+                              <div class="contact-info-card" data-animate="fade-up">
+                                    <h3>Office & Social</h3>
+                                    <div class="contact-info-block">
+                                          <h4>Constituency Office</h4>
+                                          <p>
+                                                [Replace with full office address]<br />
+                                                Mumbai South Central, Maharashtra
+                                          </p>
+                                          <p>
+                                                Phone: +91-XXXXXXXXXX<br />
+                                                Email: office@rahulshewale.in
+                                          </p>
+                                    </div>
+
+                                    <div class="contact-info-block">
+                                          <h4>Office Hours</h4>
+                                          <p>Monday to Saturday – 10:30 AM to 6:30 PM</p>
+                                    </div>
+
+                                    <div class="contact-info-block">
+                                          <h4>Social Media</h4>
+                                          <div class="social-row">
+                                                <span>Twitter</span>
+                                                <span>Facebook</span>
+                                                <span>Instagram</span>
+                                                <span>YouTube</span>
+                                          </div>
+                                    </div>
+
+                                    <div class="map-placeholder">
+                                          <span>Map of Constituency Office</span>
+                                    </div>
+                              </div>
                         </div>
+
+                        <footer class="footer" data-animate="fade-up">
+                              <div>© <span id="year"></span> Office of Rahul Ramesh Shewale. All rights reserved.</div>
+                              <div class="footer-meta">
+                                    <span>Designed for clarity, accessibility and mobile-first use.</span>
+                                    <span>Shiv Sena (Shinde) · Mumbai South Central</span>
+                              </div>
+                        </footer>
                   </section>
-            </main>
 
-            <!-- Footer -->
-            <footer class="footer" data-scroll-section>
-                  <div class="container">
-                        <p>&copy; 2025 Politician Portfolio. All rights reserved.</p>
-                  </div>
-            </footer>
+            </div>
+      </div>
 
-      </div><!-- end scroll-container -->
+      <!-- ==========================
+       SCRIPTS
+  =========================== -->
+      <!-- GSAP + ScrollTrigger -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-      
+      <!-- Locomotive Scroll -->
+      <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+
+      <!-- Main JS -->
+      <script src="./scripts/script.js"></script>
 </body>
 
 </html>
